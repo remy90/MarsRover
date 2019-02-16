@@ -1,0 +1,14 @@
+C:\git\MarsRoverApp\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\git\MarsRoverApp\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\git\MarsRoverApp\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\git\MarsRoverApp\bin\Debug\netcoreapp2.1\MarsRoverApp.deps.json
+C:\git\MarsRoverApp\bin\Debug\netcoreapp2.1\MarsRoverApp.runtimeconfig.json
+C:\git\MarsRoverApp\bin\Debug\netcoreapp2.1\MarsRoverApp.runtimeconfig.dev.json
+C:\git\MarsRoverApp\bin\Debug\netcoreapp2.1\MarsRoverApp.dll
+C:\git\MarsRoverApp\bin\Debug\netcoreapp2.1\MarsRoverApp.pdb
+C:\git\MarsRoverApp\obj\Debug\netcoreapp2.1\MarsRoverApp.csprojAssemblyReference.cache
+C:\git\MarsRoverApp\obj\Debug\netcoreapp2.1\MarsRoverApp.csproj.CoreCompileInputs.cache
+C:\git\MarsRoverApp\obj\Debug\netcoreapp2.1\MarsRoverApp.AssemblyInfoInputs.cache
+C:\git\MarsRoverApp\obj\Debug\netcoreapp2.1\MarsRoverApp.AssemblyInfo.cs
+C:\git\MarsRoverApp\obj\Debug\netcoreapp2.1\MarsRoverApp.dll
+C:\git\MarsRoverApp\obj\Debug\netcoreapp2.1\MarsRoverApp.pdb
