@@ -10,13 +10,14 @@
                 return directionTurn == DirectionTurn.Left ? Cardinal.South : Cardinal.North;
             else if (direction == Cardinal.North)
                 return directionTurn == DirectionTurn.Left ? Cardinal.West : Cardinal.East;
-            return null;
+            return direction;
         }
     }
 
     public enum DirectionTurn
     {
         Left,
-        Right
+        Right,
+        None
     }
 }
