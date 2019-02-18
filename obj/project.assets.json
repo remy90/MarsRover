@@ -5860,9 +5860,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\git\\MarsRoverApp\\MarsRoverApp.csproj",
-      "projectName": "MarsRoverApp",
-      "projectPath": "C:\\git\\MarsRoverApp\\MarsRoverApp.csproj",
+      "projectUniqueName": "C:\\git\\MarsRoverApp\\MarsRover.Test.csproj",
+      "projectName": "MarsRover.Test",
+      "projectPath": "C:\\git\\MarsRoverApp\\MarsRover.Test.csproj",
       "packagesPath": "C:\\Users\\JGaisie\\.nuget\\packages\\",
       "outputPath": "C:\\git\\MarsRoverApp\\obj\\",
       "projectStyle": "PackageReference",
@@ -5899,7 +5899,6 @@
             "version": "[15.9.0, )"
           },
           "Microsoft.NETCore.App": {
-            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
