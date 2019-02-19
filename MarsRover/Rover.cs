@@ -5,13 +5,10 @@
         public int Location { get; }
         public Cardinal CardinalDirection { get; }
 
-        public DirectionTurn? Turn { get; }
-
         public Rover(int location, Cardinal direction, DirectionTurn turn)
         {
             Location = location;
-            CardinalDirection = CardinalLookup.SetDirection(direction, turn) ?? Cardinal.South;
-            Turn = turn;
+            CardinalDirection = CardinalDirection;
         }
     }
 

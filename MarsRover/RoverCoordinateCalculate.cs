@@ -1,8 +1,7 @@
-﻿using MarsRoverApp;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace MarsRover
+namespace MarsRoverApp
 {
     public class RoverCoordinateCalculate
     {
@@ -18,64 +17,61 @@ namespace MarsRover
          */
         public int column = 100; //Save value?
         private IEnumerable<string> commands;
-        readonly int yProduct = 100;
-        readonly int _xProduct = 1; // 1 + previous value
+        private readonly int _yScalar = 100;
+        private readonly int _xScalar = 1; // 1 + previous value
 
         public RoverCoordinateCalculate(IEnumerable<string> commands)
         {
             this.commands = commands;
         }
 
-        public void OrganiseSets()
+        public int OrganiseSets()
         {
             //Inits
             var final = new List<int>();
-            int numbers = 0; // Save value?
+            int numbers = 1; // Save values?
             int initialCoordinate = 1;
+            int finalCoordinate = 1;
             Cardinal card = Cardinal.South;
 
-            foreach (var command in this.commands)
+            foreach (var command in commands)
             {
-                //Create new list
+                int currentValue = initialCoordinate;
+                
                 if (int.TryParse(command, out int meters))
                 {
-                    numbers += SetXAndYProduct(card, initialCoordinate);
+                    numbers += SetCoordinateValue(card, meters);
+                    // Combine all meter ranges between direction changes
                     continue;
                 }
 
-                final.Add(numbers);
-                numbers = 0;
-
+                // If direction has changed, set the column
                 if (Enum.TryParse(command, out DirectionTurn direction))
-                    CardinalLookup.SetDirection(card, direction);
-                
-                SetXAndYProduct(card, initialCoordinate);
-                // if it's not an int, create a new list
+                    card = CardinalLookup.SetDirection(card, direction);
             }
+            finalCoordinate = numbers;
+            return finalCoordinate;
         }
 
-        private int SetXAndYProduct(Cardinal cardinal, int currentValue)
+        private int SetCoordinateValue(Cardinal cardinal, int currentValue)
         {
-            // Y product always equals 100
-            // X product changes based on column
-
             switch (CardinalLookup.SetDirection(cardinal, DirectionTurn.None))
             {
                 case Cardinal.South:
-                    column = 100 * _xProduct; // Add 100 with every meter
+                    currentValue *= _yScalar; // Add 100 with every meter
                     break;
                 case Cardinal.West:
-                    column = 1 - yProduct; // subtract 1 with every meter
+                    currentValue -= _xScalar; // subtract 1 with every meter
                     break;
                 case Cardinal.North:
-                    column = -100 * _xProduct; // Subtract 100 with every meter
+                    currentValue /= _yScalar; // Subtract 100 with every meter
                     break;
                 case Cardinal.East:
-                    column = 1 + yProduct; // Add 1 with every meter
+                    currentValue += _xScalar; // Add 1 with every meter
                     break;
             }
 
-            return currentValue + column; // return new coordinate
+            return currentValue; // return new coordinate
         }
     }
 }

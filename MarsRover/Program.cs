@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MarsRoverApp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace MarsRover
 {
@@ -21,8 +21,7 @@ namespace MarsRover
             argList = RemoveWhitespace(argList);
 
             IEnumerable<string> commands = argList.Split(',').AsEnumerable();
-            foreach (var command in commands)
-                Console.WriteLine(command);
+            var roverCalc = new RoverCoordinateCalculate(commands);
 
             Console.ReadLine();
         }

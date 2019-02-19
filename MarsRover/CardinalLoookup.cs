@@ -2,8 +2,10 @@
 {
     public static class CardinalLookup
     {
-        public static Cardinal? SetDirection(Cardinal direction, DirectionTurn directionTurn)
+        public static Cardinal SetDirection(Cardinal direction, DirectionTurn directionTurn)
         {
+            if (directionTurn == DirectionTurn.None)
+                return direction;
             if (direction == Cardinal.South)
                 return directionTurn == DirectionTurn.Left ? Cardinal.East : Cardinal.West;
             else if (direction == Cardinal.West)
