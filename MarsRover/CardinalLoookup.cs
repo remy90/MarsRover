@@ -12,6 +12,8 @@
                 return directionTurn == DirectionTurn.Left ? Cardinal.South : Cardinal.North;
             else if (direction == Cardinal.North)
                 return directionTurn == DirectionTurn.Left ? Cardinal.West : Cardinal.East;
+            else if (direction == Cardinal.East)
+                return directionTurn == DirectionTurn.Left ? Cardinal.North : Cardinal.South;
             return direction;
         }
     }

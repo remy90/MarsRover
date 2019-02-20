@@ -23,6 +23,8 @@ namespace MarsRover
             IEnumerable<string> commands = argList.Split(',').AsEnumerable();
             var roverCalc = new RoverCoordinateCalculate(commands);
 
+            var roverVal = roverCalc.OrganiseSets();
+            var rover = new Rover(roverVal.Item1, roverVal.Item2);
             Console.ReadLine();
         }
 

@@ -5,10 +5,10 @@
         public int Location { get; }
         public Cardinal CardinalDirection { get; }
 
-        public Rover(int location, Cardinal direction, DirectionTurn turn)
+        public Rover(int location, Cardinal compass)
         {
             Location = location;
-            CardinalDirection = CardinalDirection;
+            CardinalDirection = compass;
         }
     }
 

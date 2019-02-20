@@ -15,7 +15,7 @@ namespace MarsRover.Test
             };
 
             var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(101, tmp.OrganiseSets());
+            Assert.Equal(101, tmp.OrganiseSets().Item1);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace MarsRover.Test
             };
 
             var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(501, tmp.OrganiseSets());
+            Assert.Equal(501, tmp.OrganiseSets().Item1);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace MarsRover.Test
             };
 
             var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(501, tmp.OrganiseSets());
+            Assert.Equal(501, tmp.OrganiseSets().Item1);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace MarsRover.Test
             };
 
             var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(2, tmp.OrganiseSets());
+            Assert.Equal(2, tmp.OrganiseSets().Item1);
         }
 
         [Fact]
@@ -64,13 +64,21 @@ namespace MarsRover.Test
             };
 
             var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(102, tmp.OrganiseSets());
+            Assert.Equal(102, tmp.OrganiseSets().Item1);
         }
 
         [Fact]
         public void GivenAStartingCardinalOfSouth_WhenTheRoverIsTurnedLeft_ThenTheRoverFacesEast()
         {
-            var rover = new Rover(1, Cardinal.South, DirectionTurn.Left);
+            var commands = new List<string>()
+            {
+                "Left", "1"
+            };
+
+            var tmp = new RoverCoordinateCalculate(commands);
+            var t2 = tmp.OrganiseSets();
+            var rover = new Rover(t2.Item1, t2.Item2);
+
             Assert.Equal(Cardinal.East, rover.CardinalDirection);
         }
     }
