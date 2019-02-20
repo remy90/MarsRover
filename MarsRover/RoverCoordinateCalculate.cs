@@ -17,55 +17,57 @@ namespace MarsRoverApp
          */
         private readonly IEnumerable<string> commands;
         private readonly int _yScalar = 100;
-        private readonly int _xScalar = 1;
 
         public RoverCoordinateCalculate(IEnumerable<string> commands)
         {
             this.commands = commands;
         }
 
-        public (int, Cardinal) OrganiseSets()
+        public (int Location, Cardinal Compass) OrganiseSets()
         {
             int initialCoordinate = 1;
             var compass = Cardinal.South;
-            int coordinate = initialCoordinate;
+            int currentLocation = initialCoordinate;
+            int newLocation = 0;
+            int i = -1;
             foreach (var command in commands)
             {
-                if (int.TryParse(command, out int meters))
+                if (int.TryParse(command, out int meterDiff))
                 {
-                    coordinate += SetCoordinateValue(compass, meters);
+                    newLocation += SetCoordinateValue(compass, meterDiff);
+                    i++;
                     continue;
                 }
 
                 if (Enum.TryParse(command, out DirectionTurn direction))
-                {
                     compass = CardinalLookup.SetDirection(compass, direction);
-
-                }
             }
-
-            return (coordinate, compass);
+            newLocation = i >= 1 ? newLocation - i : newLocation;
+            return (newLocation, compass);
         }
 
-        private int SetCoordinateValue(Cardinal cardinal, int coordinateChange)
+        private int SetCoordinateValue(Cardinal compass, int locationDiff)
         {
-            switch (CardinalLookup.SetDirection(cardinal, DirectionTurn.None))
+            var newLocation = 1;
+            switch (compass)
             {
                 case Cardinal.South:
-                    coordinateChange *= _yScalar; // Add 100 with every meter
+                    newLocation += (locationDiff * _yScalar); // Add 100 with every meter
                     break;
                 case Cardinal.West:
-                    coordinateChange = _xScalar; // subtract 1 with every meter
+                    newLocation = 1;
+                    newLocation -= locationDiff; // subtract 1 with every meter
                     break;
                 case Cardinal.North:
-                    coordinateChange /= _yScalar; // Subtract 100 with every meter
+                    newLocation -= (locationDiff * _yScalar); // Subtract 100 with every meter
                     break;
                 case Cardinal.East:
-                    coordinateChange = _xScalar; // Add 1 with every meter
+                    newLocation = 1;
+                    newLocation += locationDiff; // Add 1 with every meter
                     break;
             }
 
-            return coordinateChange; // return new coordinate
+            return newLocation; // return new coordinate
         }
     }
 }
