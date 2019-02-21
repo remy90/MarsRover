@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MarsRoverApp
 {
@@ -9,18 +10,12 @@ namespace MarsRoverApp
         /// Sets the Coordinates for the rover
         /// </summary>
         /// <returns></returns>
-        /* Accept rover steps: x * 100 if % 100
-         * 
-         * If command is int, set number. If next number is int, add it to the previous, continue untill other command is received
-         * If command is direction, change Cardinal and yProduct, increment/decrement xProduct accordingly
-         * 
-         */
-        private readonly IEnumerable<string> commands;
+        private readonly IEnumerable<string> originalCommands;
         private readonly int _yScalar = 100;
 
         public RoverCoordinateCalculate(IEnumerable<string> commands)
         {
-            this.commands = commands;
+            originalCommands = commands;
         }
 
         public (int Location, Cardinal Compass) OrganiseSets()
@@ -29,21 +24,41 @@ namespace MarsRoverApp
             var compass = Cardinal.South;
             int currentLocation = initialCoordinate;
             int newLocation = 0;
-            int i = -1;
-            foreach (var command in commands)
+            int incrementCheck = -1;
+            bool exceedsCommandLimit = originalCommands.Count() > 5;
+            int tempLocation = 0;
+            var newCommands = Enumerable.Empty<string>();
+
+            if (exceedsCommandLimit)
+            {
+                newCommands = originalCommands.Take(5);
+                Console.WriteLine("Number of commands exceeded maximum of 5, only first 5 are now applied");
+            }
+            else
+                newCommands = originalCommands;
+            
+            foreach (var command in newCommands)
             {
                 if (int.TryParse(command, out int meterDiff))
                 {
-                    newLocation += SetCoordinateValue(compass, meterDiff);
-                    i++;
+                    tempLocation = SetCoordinateValue(compass, meterDiff);
+                    SetBoundaryCheck(tempLocation);
+                    newLocation += SetBoundaryCheck(tempLocation) ? tempLocation : 0;
+                    incrementCheck++;
                     continue;
                 }
 
                 if (Enum.TryParse(command, out DirectionTurn direction))
                     compass = CardinalLookup.SetDirection(compass, direction);
             }
-            newLocation = i >= 1 ? newLocation - i : newLocation;
+
+            newLocation = incrementCheck >= 1 ? newLocation - incrementCheck : newLocation;
             return (newLocation, compass);
+        }
+
+        private bool SetBoundaryCheck(int tempLocation)
+        {
+            return true;
         }
 
         private int SetCoordinateValue(Cardinal compass, int locationDiff)
@@ -67,7 +82,7 @@ namespace MarsRoverApp
                     break;
             }
 
-            return newLocation; // return new coordinate
+            return newLocation;
         }
     }
 }

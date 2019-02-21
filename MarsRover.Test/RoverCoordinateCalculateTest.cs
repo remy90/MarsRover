@@ -7,12 +7,17 @@ namespace MarsRover.Test
     public class RoverCoordinateCalculateTest
     {
         [Fact]
+        public void GivenAListOfCommands_WhenTheListCalculatesMoreThan5Actions_ThenOnlyTheFirst5AreExecuted()
+        {
+            var commands = new List<string>() { "1" , "1", "1", "1", "1", "1", "1", "1", "1", "1" };
+            var tmp = new RoverCoordinateCalculate(commands);
+            Assert.Equal(501, tmp.OrganiseSets().Location);
+        }
+
+        [Fact]
         public void GivenAStartingCoordinateOf1_WhenTheCommandIsSetSouthBy1Meter_ThenTheExpectedCoordinateIs101()
         {
-            var commands = new List<string>()
-            {
-                "1"
-            };
+            var commands = new List<string>() { "1" };
 
             var tmp = new RoverCoordinateCalculate(commands);
             Assert.Equal(101, tmp.OrganiseSets().Location);
@@ -21,10 +26,7 @@ namespace MarsRover.Test
         [Fact]
         public void GivenAStartingCoordinateOf1_WhenTheCommandIsSetSouthBy5Meters_ThenTheExpectedCoordinateIs501()
         {
-            var commands = new List<string>()
-            {
-                "5"
-            };
+            var commands = new List<string>() { "5" };
 
             var tmp = new RoverCoordinateCalculate(commands);
             Assert.Equal(501, tmp.OrganiseSets().Location);
@@ -33,22 +35,28 @@ namespace MarsRover.Test
         [Fact]
         public void GivenAStartingCoordinateOf1_WhenTheCommandIsSetSouthBy2Plus3Meters_ThenTheExpectedCoordinateIs501()
         {
-            var commands = new List<string>()
-            {
-                "2", "3"
-            };
+            var commands = new List<string>() { "2", "3" };
 
             var tmp = new RoverCoordinateCalculate(commands);
             Assert.Equal(501, tmp.OrganiseSets().Location);
         }
 
         [Fact]
-        public void GivenAStartingCoordinateOf1_WhenTheRoverIsTurnedLeftAndMovedByOneMeter_ThenTheExpectedCoordinateIs2()
+        public void GivenAStartingCoordinateOf1_WhenTheCommandIZigZag_ThenTheExpectedCoordinateIs501()
         {
             var commands = new List<string>()
             {
-                "Left", "1"
+                "2", "Left", "3", "Right", "2",
             };
+
+            var tmp = new RoverCoordinateCalculate(commands);
+            Assert.Equal(404, tmp.OrganiseSets().Location);
+        }
+
+        [Fact]
+        public void GivenAStartingCoordinateOf1_WhenTheRoverIsTurnedLeftAndMovedByOneMeter_ThenTheExpectedCoordinateIs2()
+        {
+            var commands = new List<string>() { "Left", "1" };
 
             var tmp = new RoverCoordinateCalculate(commands);
             Assert.Equal(2, tmp.OrganiseSets().Location);

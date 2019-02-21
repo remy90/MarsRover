@@ -19,21 +19,21 @@ namespace MarsRover.Test
         }
 
         [Fact]
-        public void GivenARoverSouthFacingStartingPoint_WhenTheRoverIsIncrementallyMoved10m_ThenTheRoverIsAt1000m()
+        public void GivenARoverSouthFacingStartingPoint_WhenTheRoverIsIncrementallyMoved5m_ThenTheRoverIsAt500m()
         {
-            var commands = new List<string>() { "1", "1", "1", "1", "1", "1", "1", "1", "1", "1" };
+            var commands = new List<string>() { "1", "1", "1", "1", "1" };
 
             var calculate = new RoverCoordinateCalculate(commands);
             var (Location, Compass) = calculate.OrganiseSets();
             var rover = new Rover(Location, Compass);
 
-            Assert.Equal(1001, rover.Location);
+            Assert.Equal(501, rover.Location);
         }
 
         [Fact]
-        public void GivenARoverSouthFacingStartingPoint_WhenTheRoverRoamsThePerimeter_ThenTheRoverReturnsTo1m()
+        public void GivenARoverSouthFacingStartingPoint_WhenTheRoverRoamsTheBoundaryAndBack_ThenTheRoverReturnsTo1m()
         {
-            var commands = new List<string>() { "100", "Left", "100", "Left", "100", "Left", "100" };
+            var commands = new List<string>() { "100", "Left", "Left", "100" };
 
             var calculate = new RoverCoordinateCalculate(commands);
             var (Location, Compass) = calculate.OrganiseSets();
