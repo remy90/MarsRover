@@ -18,13 +18,14 @@ namespace MarsRoverApp
             this.commands = commands;
         }
 
-        public (int Location, Cardinal Compass) AddressCommands()
+        public (int Location, Cardinal Compass) AddressCommands(int previousLocation, Cardinal previousDirection)
         {
-            int newLocation = 1,
+            var compass = previousDirection;
+            int location = previousLocation,
                 locationAdjustment = 0,
-                boundaryLimit = 9901;
-
-            var compass = Cardinal.South;
+                boundaryLimit = (compass == Cardinal.East || compass == Cardinal.West)
+                        ? GetLimitForLatitudinalTravel(compass, location)
+                        : GetLimitForLongitudinalTravel(compass, location);
             
             IEnumerable<string> newCommands = ValidatedCommands();
 
@@ -32,9 +33,15 @@ namespace MarsRoverApp
             {
                 if (int.TryParse(command, out int meterDiff))
                 {
+                    if (meterDiff < 0)
+                    {
+                        Console.WriteLine("Negative values are not accepted due to boundary limitations");
+                        continue;
+                    }
+
                     locationAdjustment = SetLocationAdjustment(compass, meterDiff);
                     
-                    bool perimeterIsReached = GetPerimeterValidation(compass, newLocation + locationAdjustment, boundaryLimit);
+                    bool perimeterIsReached = GetPerimeterValidation(compass, location + locationAdjustment, boundaryLimit);
 
                     if (perimeterIsReached)
                     {
@@ -42,22 +49,24 @@ namespace MarsRoverApp
                         return  (boundaryLimit, compass);
                     }
                     else
-                        newLocation += locationAdjustment;
+                        location += locationAdjustment;
 
                     continue;
                 }
 
-                if (Enum.TryParse(command, out DirectionTurn direction))
+                if (Enum.TryParse(command, true, out DirectionTurn direction))
                 {
                     compass = CardinalLookup.SetDirection(compass, direction);
 
                     boundaryLimit = (compass == Cardinal.East || compass == Cardinal.West)
-                        ? GetLimitForLatitudinalTravel(compass, newLocation)
-                        : GetLimitForLongitudinalTravel(compass, newLocation);
+                        ? GetLimitForLatitudinalTravel(compass, location)
+                        : GetLimitForLongitudinalTravel(compass, location);
                 }
+                else
+                    Console.WriteLine($"Command \"{command}\" not recognised");
             }
             
-            return (newLocation, compass);
+            return (location, compass);
         }
 
         private IEnumerable<string> ValidatedCommands()

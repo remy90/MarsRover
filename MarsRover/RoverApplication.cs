@@ -22,7 +22,7 @@ namespace MarsRoverApp
                 IEnumerable<string> commands = argList.Split(',').AsEnumerable();
                 var roverCalc = new RoverCoordinateCalculate(commands);
 
-                var (Location, Compass) = roverCalc.AddressCommands();
+                var (Location, Compass) = roverCalc.AddressCommands(rover.Location, rover.CardinalDirection);
                 rover.Location = Location;
                 rover.CardinalDirection = Compass;
 
@@ -39,7 +39,7 @@ namespace MarsRoverApp
 
         private bool RepeatProcess(string response)
         {
-            return (response.ToUpper() == "Y");
+            return (string.Equals(response, "Y", StringComparison.OrdinalIgnoreCase));
         }
 
         private string RemoveWhitespace(string input)
