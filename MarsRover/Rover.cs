@@ -2,8 +2,8 @@
 {
     public class Rover
     {
-        public int Location { get; }
-        public Cardinal CardinalDirection { get; }
+        public int Location { get; set;  }
+        public Cardinal CardinalDirection { get; set; }
 
         public Rover(int location, Cardinal compass)
         {

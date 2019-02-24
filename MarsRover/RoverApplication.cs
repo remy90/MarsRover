@@ -22,14 +22,16 @@ namespace MarsRoverApp
                 IEnumerable<string> commands = argList.Split(',').AsEnumerable();
                 var roverCalc = new RoverCoordinateCalculate(commands);
 
-                var (Location, Compass) = roverCalc.OrganiseSets();
+                var (Location, Compass) = roverCalc.AddressCommands();
+                rover.Location = Location;
+                rover.CardinalDirection = Compass;
 
                 Console.WriteLine($"Rover is now at {rover.Location}, facing {rover.CardinalDirection}");
                 Console.WriteLine("Any further commands? Y/N");
                 string response = Console.ReadLine();
 
                 if (RepeatProcess(response))
-                    j += i;
+                    j ++;
                 else
                     return;
             }

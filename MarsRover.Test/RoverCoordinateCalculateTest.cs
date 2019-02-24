@@ -10,8 +10,8 @@ namespace MarsRover.Test
         public void GivenAListOfCommands_WhenTheListCalculatesMoreThan5Actions_ThenOnlyTheFirst5AreExecuted()
         {
             var commands = new List<string>() { "1" , "1", "1", "1", "1", "1", "1", "1", "1", "1" };
-            var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(501, tmp.OrganiseSets().Location);
+            var calculate = new RoverCoordinateCalculate(commands);
+            Assert.Equal(501, calculate.AddressCommands().Location);
         }
 
         [Fact]
@@ -19,8 +19,8 @@ namespace MarsRover.Test
         {
             var commands = new List<string>() { "1" };
 
-            var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(101, tmp.OrganiseSets().Location);
+            var calculate = new RoverCoordinateCalculate(commands);
+            Assert.Equal(101, calculate.AddressCommands().Location);
         }
 
         [Fact]
@@ -28,8 +28,8 @@ namespace MarsRover.Test
         {
             var commands = new List<string>() { "5" };
 
-            var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(501, tmp.OrganiseSets().Location);
+            var calculate = new RoverCoordinateCalculate(commands);
+            Assert.Equal(501, calculate.AddressCommands().Location);
         }
 
         [Fact]
@@ -37,8 +37,8 @@ namespace MarsRover.Test
         {
             var commands = new List<string>() { "2", "3" };
 
-            var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(501, tmp.OrganiseSets().Location);
+            var calculate = new RoverCoordinateCalculate(commands);
+            Assert.Equal(501, calculate.AddressCommands().Location);
         }
 
         [Fact]
@@ -49,8 +49,8 @@ namespace MarsRover.Test
                 "2", "Left", "3", "Right", "2",
             };
 
-            var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(404, tmp.OrganiseSets().Location);
+            var calculate = new RoverCoordinateCalculate(commands);
+            Assert.Equal(404, calculate.AddressCommands().Location);
         }
 
         [Fact]
@@ -58,8 +58,8 @@ namespace MarsRover.Test
         {
             var commands = new List<string>() { "Left", "1" };
 
-            var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(2, tmp.OrganiseSets().Location);
+            var calculate = new RoverCoordinateCalculate(commands);
+            Assert.Equal(2, calculate.AddressCommands().Location);
         }
 
         [Fact]
@@ -71,8 +71,8 @@ namespace MarsRover.Test
                 "Right", "1"
             };
 
-            var tmp = new RoverCoordinateCalculate(commands);
-            Assert.Equal(102, tmp.OrganiseSets().Location);
+            var calculate = new RoverCoordinateCalculate(commands);
+            Assert.Equal(102, calculate.AddressCommands().Location);
         }
     }
 }
