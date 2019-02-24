@@ -6,7 +6,8 @@ namespace MarsRover
     {
         static void Main()
         {
-            RoverApplication.Run();
+            var app = new RoverApplication();
+            app.Run();
         }
     }
 }

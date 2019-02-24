@@ -20,8 +20,7 @@ namespace MarsRoverApp
 
         public (int Location, Cardinal Compass) AddressCommands()
         {
-            int newLocation = 0,
-                incrementCheck = -1,
+            int newLocation = 1,
                 locationAdjustment = 0,
                 boundaryLimit = 9901;
 
@@ -43,10 +42,7 @@ namespace MarsRoverApp
                         return  (boundaryLimit, compass);
                     }
                     else
-                    {
                         newLocation += locationAdjustment;
-                        incrementCheck++;
-                    }
 
                     continue;
                 }
@@ -60,8 +56,7 @@ namespace MarsRoverApp
                         : GetLimitForLongitudinalTravel(compass, newLocation);
                 }
             }
-
-            newLocation = incrementCheck >= 1 ? newLocation - incrementCheck : newLocation;
+            
             return (newLocation, compass);
         }
 
@@ -111,21 +106,19 @@ namespace MarsRoverApp
 
         private int SetLocationAdjustment(Cardinal compass, int locationDiff)
         {
-            var newLocation = 1;
+            var newLocation = 0;
             switch (compass)
             {
                 case Cardinal.South:
                     newLocation += (locationDiff * _yScalar); // Add 100 with every meter
                     break;
                 case Cardinal.West:
-                    newLocation = 1;
                     newLocation -= locationDiff; // subtract 1 with every meter
                     break;
                 case Cardinal.North:
                     newLocation -= (locationDiff * _yScalar); // Subtract 100 with every meter
                     break;
                 case Cardinal.East:
-                    newLocation = 1;
                     newLocation += locationDiff; // Add 1 with every meter
                     break;
             }

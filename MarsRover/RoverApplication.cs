@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace MarsRoverApp
 {
-    public static class RoverApplication
+    public class RoverApplication
     {
-        public static void Run() {
+        public void Run() {
             int j = 1;
             const int startingLocation = 1;
             const Cardinal startingDirection = Cardinal.South;
@@ -37,12 +37,12 @@ namespace MarsRoverApp
             }
         }
 
-        private static bool RepeatProcess(string response)
+        private bool RepeatProcess(string response)
         {
             return (response.ToUpper() == "Y");
         }
 
-        private static string RemoveWhitespace(this string input)
+        private string RemoveWhitespace(string input)
         {
             return new string(input.ToCharArray()
                 .Where(c => !char.IsWhiteSpace(c))
